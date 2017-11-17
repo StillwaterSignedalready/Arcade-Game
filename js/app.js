@@ -7,7 +7,8 @@ var Enemy = function() {
     let row = 1 + Math.ceil(Math.random() * 3);
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
-    this.y = (row - 1) * 83;
+    this.y = (row - 1) * 83 - 20;
+    this.speed = 150 + Math.random() * 300;
     // 将敌人Push到allEnemies这个array中    
     allEnemies.push(this);
 };
@@ -17,8 +18,12 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
-    this.x += 3;
-    this.render();
+    if(this.x > 101 * 5){
+        let index = allEnemies.indexOf(this);
+        allEnemies.splice(index, index + 1);
+    }else{
+        this.x += dt * this.speed;
+    }
 
     // console.log('enemy.update()');
 };
@@ -33,11 +38,11 @@ Enemy.prototype.render = function() {
 class Player{
     constructor(){
         this.x = 101 * 2;
-        this.y = 83 * 4;
+        this.y = 83 * 4 - 10;
         this.sprite = 'images/char-boy.png';
     }
     update(){
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        // ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -65,9 +70,15 @@ class Player{
 const allEnemies = new Array();
 var player = new Player();
 
-for(let i = 0, len = 4; i < len; i ++ ){
+for(let i = 0, len = 3; i < len; i ++ ){
     new Enemy();
 }
+setInterval(function(){
+    let interval = Math.random() * 2500;
+    setTimeout(function(){
+        new Enemy();
+    }, interval);
+},1500);
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。

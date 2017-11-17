@@ -31,7 +31,7 @@ var Engine = (function(global) {
          * 速度是不一样的，我们需要一个对每个人都一样的常数（而不管他们的电脑有多快）
          * 就问你屌不屌！
          */
-        console.log('call main...');
+        // console.log('call main...');
         // console.log('lastTime ',lastTime)
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
@@ -68,7 +68,7 @@ var Engine = (function(global) {
      * 注释了，你可以在这里实现，也可以在 app.js 对应的角色类里面实现。
      */
     function update(dt) {
-        console.log('update()');
+        // console.log('update()');
         updateEntities(dt);
         // checkCollisions();
     }
@@ -78,12 +78,12 @@ var Engine = (function(global) {
      * 这些更新函数应该只聚焦于更新和对象相关的数据/属性。把重绘的工作交给 render 函数。
      */
     function updateEntities(dt) {
-        console.log('updateEntities()');
+        // console.log('updateEntities()');
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
         player.update();
-        console.log('updateEntities done', player);
+        // console.log('updateEntities done', player);
     }
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
@@ -92,7 +92,7 @@ var Engine = (function(global) {
      * 动画的幻觉，但是实际上，他们只是不停的在重绘整个屏幕。
      */
     function render() {
-        console.log('render');
+        // console.log('render');
         /* 这个数组保存着游戏关卡的特有的行对应的图片相对路径。 */
         var rowImages = [
                 'images/water-block.png',   // 这一行是河。
