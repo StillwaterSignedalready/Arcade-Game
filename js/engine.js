@@ -71,6 +71,14 @@ var Engine = (function(global) {
         // console.log('update()');
         updateEntities(dt);
         // checkCollisions();
+        
+        for(let enemy of allEnemies){
+            if(enemy.row == player.row){
+                if(Math.abs(enemy.center - player.center) < 70){
+                    player = new Player();
+                }
+            }
+        }
     }
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()

@@ -4,10 +4,10 @@ var Enemy = function() {
     // 我们已经提供了一个来帮助你实现更多
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
-    let row = 1 + Math.ceil(Math.random() * 3);
+    this.row = 1 + Math.ceil(Math.random() * 3);
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
-    this.y = (row - 1) * 83 - 20;
+    this.y = (this.row - 1) * 83 - 20;
     this.speed = 150 + Math.random() * 300;
     // 将敌人Push到allEnemies这个array中    
     allEnemies.push(this);
@@ -18,6 +18,7 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
+    this.center = this.x + 40;
     if(this.x > 101 * 5){
         let index = allEnemies.indexOf(this);
         allEnemies.splice(index, index + 1);
@@ -40,9 +41,11 @@ class Player{
         this.x = 101 * 2;
         this.y = 83 * 4 - 10;
         this.sprite = 'images/char-boy.png';
+        this.row = 5;
     }
     update(){
         // ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        this.center = this.x + (101 / 2);
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -54,12 +57,14 @@ class Player{
                 break;
             case 'up':
                 this.y -= 83;
+                this.row--;
                 break;
             case 'right':
                 this.x += 101;
                 break;
             case 'down':
                 this.y += 83;
+                this.row++;
                 break;
         }
     }
