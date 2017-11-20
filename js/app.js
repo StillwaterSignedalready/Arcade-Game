@@ -21,7 +21,8 @@ Enemy.prototype.update = function(dt) {
     this.center = this.x + 40;
     if(this.x > 101 * 5){
         let index = allEnemies.indexOf(this);
-        allEnemies.splice(index, index + 1);
+        console.log(allEnemies[index].x);
+        allEnemies.splice(index, 1);
     }else{
         this.x += dt * this.speed;
     }
@@ -40,7 +41,7 @@ class Player{
     constructor(){
         this.x = 101 * 2;
         this.y = 83 * 4 - 10;
-        this.sprite = 'images/char-boy.png';
+        this.sprite = 'images/' + playerSprite[Math.floor(Math.random() * 5)];
         this.row = 5;
     }
     update(){
@@ -53,18 +54,26 @@ class Player{
     handleInput(orient){
         switch(orient){
             case 'left':
-                this.x -= 101;
+                if(this.x > 0){
+                    this.x -= 101;
+                }
                 break;
             case 'up':
-                this.y -= 83;
-                this.row--;
+                if(this.y > 0){
+                    this.y -= 83;
+                    this.row--;
+                }
                 break;
             case 'right':
-                this.x += 101;
+                if(this.x < 404){
+                    this.x += 101;
+                }
                 break;
             case 'down':
-                this.y += 83;
-                this.row++;
+                if(this.y < 330){
+                    this.y += 83;
+                    this.row++;
+                }
                 break;
         }
     }
@@ -72,6 +81,14 @@ class Player{
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
+const catched = [];
+const playerSprite = [
+    'char-boy.png',
+    'char-cat-girl.png',
+    'char-horn-girl.png',
+    'char-pink-girl.png',
+    'char-princess-girl.png'
+];
 const allEnemies = new Array();
 var player = new Player();
 

@@ -57,7 +57,6 @@ var Engine = (function(global) {
      */
     function init() {
         // console.log('init...');
-        reset();
         lastTime = Date.now();
         main();
     }
@@ -70,17 +69,18 @@ var Engine = (function(global) {
     function update(dt) {
         // console.log('update()');
         updateEntities(dt);
-        // checkCollisions();
-        
+    }
+
+    function checkCollisions(){
         for(let enemy of allEnemies){
             if(enemy.row == player.row){
                 if(Math.abs(enemy.center - player.center) < 70){
                     player = new Player();
+                    alert('你挂了');
                 }
             }
         }
     }
-
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
      * 函数，然后，它会调用玩家对象的 update 方法，最后这个函数被 update 函数调用。
      * 这些更新函数应该只聚焦于更新和对象相关的数据/属性。把重绘的工作交给 render 函数。
@@ -126,6 +126,12 @@ var Engine = (function(global) {
         }
 
         renderEntities();
+        /* 绘图后，检测碰撞和胜利条件 */
+        checkCollisions();
+        if(player.y < 10){
+            console.log(player.y)
+            reset();
+        }
     }
 
     /* 这个函数会在每个时间间隙被 render 函数调用。他的目的是分别调用你在 enemy 和 player
@@ -145,7 +151,9 @@ var Engine = (function(global) {
      * 函数调用一次。
      */
     function reset() {
-        // 空操作
+        alert('U win!');
+        canvas.height = canvas.height;
+        player = new Player;
     }
 
     /* 紧接着我们来加载我们知道的需要来绘制我们游戏关卡的图片。然后把 init 方法设置为回调函数。
@@ -156,7 +164,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 
