@@ -81,7 +81,6 @@ class Player{
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
-const catched = [];
 const playerSprite = [
     'char-boy.png',
     'char-cat-girl.png',
